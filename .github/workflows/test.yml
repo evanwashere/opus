@@ -1,0 +1,27 @@
+name: test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    name: node ${{ matrix.version }} | ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        version: [10.x, 12.x, 14.x, 16.x]
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.version }}
+
+    - run: node test/index.js
+    - run: node test/wasm.js || true
+    - run: node test/index.mjs || true

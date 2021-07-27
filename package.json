@@ -1,0 +1,12 @@
+{
+  "license": "MIT",
+  "main": "lib.js",
+  "version": "0.0.1",
+  "name": "@evan/opus",
+  "author": "evanwashere <evan@tsu.sh>",
+  "homepage": "https://github.com/evanwashere/opus#readme",
+  "description": "fast opus bindings for node and browsers",
+  "keywords": ["fast", "opus", "wasm", "native", "bindings"],
+  "bugs": { "url": "https://github.com/evanwashere/opus/issues" },
+  "repository": { "type": "git", "url": "git+https://github.com/evanwashere/opus.git" }
+}
