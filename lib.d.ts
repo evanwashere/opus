@@ -6,6 +6,31 @@ type expert_frame_duration = 5 | 10 | 20 | 40 | 60 | 80 | 2.5 | 100 | 120 | 'arg
 type bandwidth = 'auto' | 'wideband' | 'fullband' | 'narrowband' | 'mediumband' | 'superwideband';
 
 declare module '@evan/opus' {
+  export class Decoder {
+    constructor(options?: {
+      channels?: 1 | 2,
+      sample_rate?: sample_rate,
+    });
+
+    channels: 1 | 2;
+    ctl(cmd: number, value?: number): number;
+    decode(buf: ArrayBufferView): Uint8Array;
+
+    // https://www.opus-codec.org/docs/opus_api-1.3.1/group__opus__decoderctls.html
+    get gain(): number;
+    set gain(int: number);
+    get pitch(): null | number;
+    get last_packet_duration(): number;
+
+    // https://www.opus-codec.org/docs/opus_api-1.3.1/group__opus__genericctls.html
+    reset(): void;
+    get in_dtx(): boolean;
+    get bandwidth(): bandwidth;
+    get sample_rate(): sample_rate;
+    get phase_inversion_disabled(): boolean;
+    set phase_inversion_disabled(bool: boolean);
+  }
+
   export class Encoder {
     constructor(options?: {
       channels?: 1 | 2,

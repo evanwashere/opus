@@ -133,10 +133,31 @@ const convert = {
   },
 }
 
+class Decoder extends opus.Decoder {
+  constructor({ channels = 2, sample_rate = 48000 } = {}) {
+    super({ channels, sample_rate });
+
+    this.channels = channels;
+  }
+
+  // https://www.opus-codec.org/docs/opus_api-1.3.1/group__opus__decoderctls.html
+  get gain() { return this.ctl(ctl.get.gain); }
+  set gain(int) { this.ctl(ctl.set.gain, clamp(-32768, int, 32767)); }
+  get pitch() { const x = this.ctl(ctl.get.pitch); return 0 === x ? null : x }
+  get last_packet_duration() { return this.ctl(ctl.get.last_packet_duration); }
+
+  // https://www.opus-codec.org/docs/opus_api-1.3.1/group__opus__genericctls.html
+  reset() { this.ctl(ctl.reset_state); }
+  get in_dtx() { return !!this.ctl(ctl.get.in_dtx); }
+  get sample_rate() { return this.ctl(ctl.get.sample_rate); }
+  get bandwidth() { return convert.b[this.ctl(ctl.get.bandwidth)]; }
+  get phase_inversion_disabled() { return !!this.ctl(ctl.get.phase_inversion_disabled); }
+  set phase_inversion_disabled(bool) { this.ctl(ctl.set.phase_inversion_disabled, bool ? 1 : 0); }
+}
+
 class Encoder extends opus.Encoder {
-  constructor({ channels, application, sample_rate }) {
-    channels = channels || 2;
-    super({ channels, sample_rate: sample_rate || 48000, application: application || 'audio' });
+  constructor({ channels = 2, application, sample_rate = 48000 } = {}) {
+    super({ channels, sample_rate, application: application || 'audio' });
 
     this.channels = channels;
   }
@@ -222,4 +243,4 @@ class Encoder extends opus.Encoder {
   set bitrate(arg) { this.ctl(ctl.set.bitrate, arg === 'max' ? ctl.bitrate_max : (arg === 'auto' ? ctl.auto : clamp(500, arg | 0, 512000))); }
 }
 
-module.exports = { ctl, Encoder };
+module.exports = { ctl, Encoder, Decoder };
