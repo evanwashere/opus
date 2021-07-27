@@ -3,7 +3,7 @@
 `npm i @evan/opus`
 
 ```js
-import { Encoder } from '@evan/opus/lib.mjs';
+import { Encoder } from '@evan/opus';
 // or const { Encoder } = require('@evan/opus');
 const e = new Encoder({ channels: 2, sample_rate: 48_000 });
 
