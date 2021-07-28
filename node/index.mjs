@@ -1,3 +1,3 @@
-import { arch, platform } from 'os';
-import { createRequire } from 'module';
-export default createRequire(import.meta.url)(`./${arch()}-${platform()}.node`);
+import lib from './index.js';
+export const Encoder = lib.Encoder;
+export const Decoder = lib.Decoder;
