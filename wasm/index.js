@@ -8,13 +8,16 @@ let bptrs;
 {
   const mod = new WebAssembly.Module(require('fs').readFileSync(require('path').join(__dirname, `${WebAssembly.validate(Uint8Array.of(0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0, 10, 9, 1, 7, 0, 65, 0, 253, 15, 26, 11)) ? 'simd' : 'opus'}.wasm`)));
 
-  const instance = new WebAssembly.Instance(mod, {
+  const instance = new WebAssembly.Instance(module, {
     wasi_snapshot_preview1: { fd_seek() { }, fd_write() { }, fd_close() { }, proc_exit() { } },
-    env: { emscripten_notify_memory_growth() {
-      u8 = new Uint8Array(wasm.memory.buffer);
-      pptrs = u8.subarray(pptr, pptr + 2 ** 13);
-      bptrs = u8.subarray(bptr, bptr + 2 ** 15);
-    } },
+
+    env: {
+      emscripten_notify_memory_growth() {
+        u8 = new Uint8Array(wasm.memory.buffer);
+        pptrs = u8.subarray(pptr, pptr + 2 ** 13);
+        bptrs = u8.subarray(bptr, bptr + 2 ** 15);
+      },
+    },
   });
 
   wasm = instance.exports;
