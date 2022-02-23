@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "main": "lib.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "types": "lib.d.ts",
   "name": "@evan/opus",
   "author": "evanwashere <evan@tsu.sh>",
