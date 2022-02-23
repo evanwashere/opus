@@ -22,6 +22,6 @@ jobs:
       with:
         node-version: ${{ matrix.version }}
 
-    - run: node test/index.js
-    - run: node test/wasm.js || true
-    - run: node test/index.mjs || true
+    - run: node tests/index.js
+    - run: node tests/wasm.js || true
+    - run: node tests/index.mjs || true
