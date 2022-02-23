@@ -49,6 +49,7 @@ const gc = cgc(ptr => wasm.free(ptr));
 
 class Decoder {
   #ptr = 0;
+
   constructor({ channels, sample_rate }) {
     gc.add(this, this.#ptr = wasm.malloc(wasm.opus_decoder_get_size(this.channels = channels || 2)));
     try { err(wasm.opus_decoder_init(this.#ptr, sample_rate || 48000, this.channels)); } catch (e) { throw (this.drop(), e); }
@@ -65,6 +66,7 @@ class Decoder {
 
 class Encoder {
   #ptr = 0;
+
   constructor({ channels, application, sample_rate }) {
     this.channels = channels || 2;
     gc.add(this, this.#ptr = wasm.malloc(wasm.opus_encoder_get_size(this.channels)));
