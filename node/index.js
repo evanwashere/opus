@@ -1,5 +1,4 @@
-const { arch, platform } = require('os');
-module.exports = require(`./${arch()}-${platform()}.node`);
+module.exports = require(`./${process.arch}-${process.platform}.node`);
 
 const eb = module.exports.buffers.encoder();
 module.exports.Encoder = class Encoder extends module.exports.Encoder {

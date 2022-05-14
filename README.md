@@ -1,6 +1,8 @@
 # fast opus bindings for node and browsers
 
-`npm i @evan/opus`
+`bun add @evan/opus`
+
+`npm install @evan/opus`
 
 ```js
 import { Encoder, Decoder } from '@evan/opus';
@@ -12,7 +14,7 @@ d.decode(e.encode(pcm));
 ```
 
 ## supported platforms
-|                  | node@10 | node@12 | node@14 | node@16 | node@17 |
+|                  | node@10 | node@12 | node@14 | node@16 | node@18 |
 | ---------------- | ------- | ------- | ------- | ------- | ------- |
 | wasm32           | ✕       | ✓       | ✓       | ✓       | ✓       |
 | macos x64        | ✓       | ✓       | ✓       | ✓       | ✓       |
